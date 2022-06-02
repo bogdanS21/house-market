@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-{
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ES2020",
-    "jsx": "preserve",
-    "strictFunctionTypes": true,
-    "checkJs": true,
-  },
-  "exclude": ["node_modules", "**/node_modules/*"]
-}
-=======
 {
   "compilerOptions": {
     "module": "ESNext",
@@ -22,4 +9,3 @@
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }
->>>>>>> ab627bc34ea37d917140bb8390b92afc04cca39b
