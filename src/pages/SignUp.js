@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore/lite'
 import { db } from '../firebase.config.js'
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg"
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
@@ -13,6 +14,7 @@ function SignUp() {
         name: '',
         email: '',
         password: ''
+
     })
     const { name, email, password } = formData
 
@@ -34,8 +36,16 @@ function SignUp() {
             updateProfile(auth.currentUser, {
                 displayName: name
             })
+            const formDataCopy = { ...formData }
+            delete formDataCopy.password
+            // @ts-ignore
+            formDataCopy.timestamp = serverTimestamp()
+
+            await setDoc(doc(db, 'users', user.uid), formDataCopy)
             navigate('/')
         } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
             console.log(error);
         }
     }
@@ -45,7 +55,7 @@ function SignUp() {
             <div className="pageContainer">
                 <header>
                     <p className="pageHeader">
-                        Welcome Back
+                        Welcome!!! Please sign up.
                     </p>
                 </header>
                 <main>
@@ -88,6 +98,8 @@ function SignUp() {
                             className='forgotPasswordLink'>
                             ForgotPassword
                         </Link>
+
+                        <p>error code</p>
 
                         <div className="signUpBar">
                             <p className="signUpText">
