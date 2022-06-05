@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore/lite'
 import { db } from '../firebase.config.js'
@@ -43,10 +44,9 @@ function SignUp() {
 
             await setDoc(doc(db, 'users', user.uid), formDataCopy)
             navigate('/')
+            toast.success('Sign up succed!!')
         } catch (error) {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(error);
+            toast.error("Something went wrong with registration");
         }
     }
 
@@ -99,7 +99,6 @@ function SignUp() {
                             ForgotPassword
                         </Link>
 
-                        <p>error code</p>
 
                         <div className="signUpBar">
                             <p className="signUpText">
